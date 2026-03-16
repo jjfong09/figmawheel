@@ -32,7 +32,6 @@ export function SpinningWheelApp() {
   const [names, setNames] = useState<string[]>([])
   const [input, setInput] = useState('')
   const [isSpinning, setIsSpinning] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [rotation, setRotation] = useState(0)
   const [showClearModal, setShowClearModal] = useState(false)
   const [showWinnerModal, setShowWinnerModal] = useState(false)
@@ -59,17 +58,14 @@ export function SpinningWheelApp() {
       }
       return arr
     })
-    setSelectedIndex(null)
   }, [])
 
   const deleteName = useCallback((index: number) => {
     setNames((prev) => prev.filter((_, i) => i !== index))
-    setSelectedIndex(null)
   }, [])
 
   const clearAll = useCallback(() => {
     setNames([])
-    setSelectedIndex(null)
     setRotation(0)
   }, [])
 
@@ -84,7 +80,6 @@ export function SpinningWheelApp() {
     const targetAngle = extraTurns * 360 - (targetIndex * segmentAngle + segmentAngle / 2)
 
     setIsSpinning(true)
-    setSelectedIndex(null)
     setRotation((prev) => prev + targetAngle)
   }, [canSpin, names.length])
 
@@ -92,13 +87,11 @@ export function SpinningWheelApp() {
     (finalAngle: number) => {
       if (!names.length) {
         setIsSpinning(false)
-        setSelectedIndex(null)
         return
       }
       const normalized = ((-finalAngle % 360) + 360) % 360
       const segmentAngle = 360 / names.length
       const index = Math.floor(normalized / segmentAngle)
-      setSelectedIndex(index)
       setWinnerName(names[index])
       setShowWinnerModal(true)
       setIsSpinning(false)
@@ -190,7 +183,6 @@ export function SpinningWheelApp() {
           setNames((prev) => prev.filter((name) => name !== winnerName))
           setShowWinnerModal(false)
           setWinnerName(null)
-          setSelectedIndex(null)
         }}
       />
     </div>
