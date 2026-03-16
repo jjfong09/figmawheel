@@ -124,7 +124,7 @@ export function SpinningWheelApp() {
         <div className="leftColumn">
           <header className="header">
             <h1 className="title">Spin the wheel!</h1>
-            <p className="subtitle pill">Follow us for more events @figmaatuccd</p>
+            <p className="subtitle pill">Get ready to win some Figma swag!</p>
           </header>
 
           <div className="card">
