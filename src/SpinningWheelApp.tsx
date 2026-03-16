@@ -185,6 +185,10 @@ export function SpinningWheelApp() {
           setWinnerName(null)
         }}
       />
+
+      <div className="footer">
+        <span>Built by UC Davis Figma Campus Leaders</span>
+      </div>
     </div>
   )
 }
