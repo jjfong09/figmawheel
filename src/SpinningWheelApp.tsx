@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { NameInputBar } from './components/NameInputBar'
-import { NameList } from './components/NameList'
 import { ConfirmModal } from './components/ConfirmModal'
 import { WinnerModal } from './components/WinnerModal'
 import { Wheel } from './components/Wheel'
@@ -30,23 +29,20 @@ const PALETTE = [
 
 export function SpinningWheelApp() {
   const [names, setNames] = useState<string[]>([])
-  const [input, setInput] = useState('')
+  const [namesText, setNamesText] = useState('')
   const [isSpinning, setIsSpinning] = useState(false)
   const [rotation, setRotation] = useState(0)
   const [showClearModal, setShowClearModal] = useState(false)
   const [showWinnerModal, setShowWinnerModal] = useState(false)
   const [winnerName, setWinnerName] = useState<string | null>(null)
 
-  const addName = useCallback(() => {
-    const trimmed = input.trim()
-    if (!trimmed) return
-    setNames((prev) => [...prev, trimmed])
-    setInput('')
-  }, [input])
-
-  const addMultiple = useCallback((newNames: string[]) => {
-    setNames((prev) => [...prev, ...newNames])
-    setInput('')
+  const handleNamesTextChange = useCallback((text: string) => {
+    setNamesText(text)
+    const lines = text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+    setNames(lines)
   }, [])
 
   const shuffleNames = useCallback(() => {
@@ -56,16 +52,14 @@ export function SpinningWheelApp() {
         const j = Math.floor(Math.random() * (i + 1))
         ;[arr[i], arr[j]] = [arr[j], arr[i]]
       }
+      setNamesText(arr.join('\n'))
       return arr
     })
   }, [])
 
-  const deleteName = useCallback((index: number) => {
-    setNames((prev) => prev.filter((_, i) => i !== index))
-  }, [])
-
   const clearAll = useCallback(() => {
     setNames([])
+    setNamesText('')
     setRotation(0)
   }, [])
 
@@ -122,19 +116,11 @@ export function SpinningWheelApp() {
 
           <div className="card">
             <NameInputBar
-              value={input}
-              onChange={setInput}
-              onSubmit={addName}
-              onAddMultiple={addMultiple}
-              disabled={isSpinning}
-            />
-
-            <NameList
-              names={names}
-              onDelete={deleteName}
+              value={namesText}
+              onChange={handleNamesTextChange}
               onShuffle={shuffleNames}
               onClearRequest={() => setShowClearModal(true)}
-              disableActions={isSpinning}
+              disabled={isSpinning}
             />
 
             <div className="actionsRow">
@@ -180,7 +166,11 @@ export function SpinningWheelApp() {
         onClose={() => setShowWinnerModal(false)}
         onRemove={() => {
           if (!winnerName) return
-          setNames((prev) => prev.filter((name) => name !== winnerName))
+          setNames((prev) => {
+            const next = prev.filter((name) => name !== winnerName)
+            setNamesText(next.join('\n'))
+            return next
+          })
           setShowWinnerModal(false)
           setWinnerName(null)
         }}

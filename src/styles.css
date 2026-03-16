@@ -97,7 +97,7 @@ body {
 
 .subtitle {
   margin: 0;
-  color: var(--muted);
+  color: #ffffff;
   max-width: 32rem;
 }
 
@@ -107,9 +107,9 @@ body {
   max-width: fit-content;
   padding: 6px 14px;
   margin-top: 6px;
-  border-radius: 7px;
-  border: 1px solid #D1D5DC;
-  background: #ffffff;
+  border-radius: 0px;
+  /* border: 1px solid #D1D5DC; */
+  background: #4D49FC;
   font-size: 14px;
 }
 
@@ -138,15 +138,21 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  min-height: 0;
 }
 
 .inputRow {
   display: flex;
   gap: 10px;
+  flex: 1;
+  min-height: 0;
 }
 
 .nameTextarea {
   flex: 1;
+  min-height: 0;
+  width: 100%;
   border-radius: 10px;
   border: 1px solid var(--border-subtle);
   background: #f9fafb;
@@ -157,7 +163,12 @@ body {
   outline: none;
   resize: none;
   line-height: 1.5;
-  min-height: 40px;
+}
+
+@media (max-width: 640px) {
+  .nameTextarea {
+    font-size: 14px;
+  }
 }
 
 .nameTextarea::placeholder {
