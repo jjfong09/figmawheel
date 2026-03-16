@@ -2,7 +2,7 @@
   --bg: #f5f5f7;
   --panel: #ffffff;
   --panel-soft: #ffffff;
-  --border-subtle: rgba(15, 23, 42, 0.06);
+  --border-subtle: rgba(13, 20, 35, 0.164);
   --border-strong: rgba(15, 23, 42, 0.18);
   --text: #111827;
   --muted: #6b7280;
@@ -148,7 +148,7 @@ body {
 .nameTextarea {
   flex: 1;
   border-radius: 10px;
-  border: 1px solid #D1D5DC;
+  border: 1px solid var(--border-subtle);
   background: #f9fafb;
   color: var(--text);
   padding: 10px 14px;
@@ -198,12 +198,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.25s ease-in-out,
+    color 0.25s ease-in-out,
+    border-radius 0.25s ease-in-out;
 }
 
 .iconButton:hover:not(:disabled) {
   background: #f3f4f6;
   color: var(--text);
+  border-radius: 0;
 }
 
 .iconButton.danger:hover:not(:disabled) {
@@ -302,11 +306,12 @@ body {
   align-items: center;
   gap: 6px;
   transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease,
-    border-color 0.15s ease;
+    background 0.25s ease-in-out,
+    color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out,
+    transform 0.25s ease-in-out,
+    border-color 0.25s ease-in-out,
+    border-radius 0.25s ease-in-out;
 }
 
 .primaryButton {
@@ -316,7 +321,7 @@ body {
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: #374151;
+  border-radius: 0;
 }
 
 .primaryButton:disabled {
@@ -332,7 +337,8 @@ body {
 }
 
 .secondaryButton:hover:not(:disabled) {
-  background: rgba(255, 60, 172, 0.22);
+  /* background: rgba(255, 60, 172, 0.22); */
+  border-radius: 0;
 }
 
 .secondaryButton:disabled {
@@ -351,6 +357,7 @@ body {
   border-style: solid;
   border-color: var(--border-strong);
   color: var(--text);
+  border-radius: 0;
 }
 
 .ghostButton.danger {
@@ -546,11 +553,14 @@ body {
   font-weight: 500;
   padding: 8px 16px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition:
+    background 0.25s ease-in-out,
+    border-radius 0.25s ease-in-out;
 }
 
 .modalCancelButton:hover {
   background: #f9fafb;
+  border-radius: 0;
 }
 
 .modalConfirmButton {
@@ -562,11 +572,14 @@ body {
   font-weight: 500;
   padding: 8px 16px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition:
+    background 0.25s ease-in-out,
+    border-radius 0.25s ease-in-out;
 }
 
 .modalConfirmButton:hover {
   background: #dc2626;
+  border-radius: 0;
 }
 
 @media (max-width: 640px) {
